@@ -1,0 +1,28 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+[application]
+
+config/name="EHS"
+run/main_scene="res://World.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+ServerHandler="*res://ServerHandler.gd"
+EntityHandler="*res://EntityHandler.gd"
+
+[physics]
+
+common/physics_jitter_fix=0.0
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
