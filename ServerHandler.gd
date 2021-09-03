@@ -36,9 +36,9 @@ func _peer_disconnected(player_id):
 	rpc_id(0, "return_disconnected_player", player_id)
 
 
-remote func synchronize(path, func_name, state):
-	rpc_id(0, "s_synchronize", path, func_name, state)
+remote func synchronize(node_path, func_name, state):
+	rpc_id(0, "s_synchronize", node_path, func_name, state)
 
 
-remote func synchronize_client(path, func_name, state):
-	rpc_id(0, "s_synchronize_client", path, func_name, state, get_tree().get_rpc_sender_id())
+remote func synchronize_client(node_path, func_name, state):
+	rpc_id(0, "s_synchronize_client", node_path, func_name, state, get_tree().get_rpc_sender_id())
