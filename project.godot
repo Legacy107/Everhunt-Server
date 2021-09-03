@@ -10,14 +10,13 @@ config_version=4
 
 [application]
 
-config/name="EHS"
+config/name="EverhuntServer"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 ServerHandler="*res://ServerHandler.gd"
-EntityHandler="*res://EntityHandler.gd"
 
 [physics]
 
