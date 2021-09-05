@@ -5,7 +5,7 @@ var network = NetworkedMultiplayerENet.new()
 var port = 1909
 
 
-var max_players = 32
+var max_players = 36
 var player_ids = {}
 var team_player_counts = [0, 0]
 
