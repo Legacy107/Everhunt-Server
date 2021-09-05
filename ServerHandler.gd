@@ -6,7 +6,7 @@ var port = 1909
 
 
 var max_players = 36
-var player_ids = {}
+var player_team_ids = {}
 var team_player_counts = [0, 0]
 
 
@@ -23,19 +23,20 @@ func _ready():
 func _peer_connected(player_id):
 	print(str(player_id) + " connected")
 
-	player_ids[player_id] = int(team_player_counts[0] > team_player_counts[1])
-	team_player_counts[player_ids[player_id]] += 1
+	player_team_ids[player_id] = int(team_player_counts[0] > team_player_counts[1])
+	team_player_counts[player_team_ids[player_id]] += 1
 
-	rpc_id(0, "return_player_ids", player_ids)
+	rpc_id(0, "return_player_team_ids", player_team_ids)
+	rpc_id(player_id, "return_connected_player_team_id", player_id, player_team_ids[player_id])
 
 
 func _peer_disconnected(player_id):
 	print(str(player_id) + " disconnected")
 
-	team_player_counts[player_ids[player_id]] -= 1
-	player_ids.erase(player_id)
+	team_player_counts[player_team_ids[player_id]] -= 1
+	player_team_ids.erase(player_id)
 
-	rpc_id(0, "return_player_ids", player_ids)
+	rpc_id(player_id, "return_disconnected_player_team_id", player_id)
 
 
 remote func synchronize(node_path, func_name, state):
