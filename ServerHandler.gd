@@ -5,8 +5,9 @@ var network = NetworkedMultiplayerENet.new()
 var port = 1909
 
 
-var max_players = 100
-var player_ids = []
+var max_players = 32
+var player_ids = {}
+var team_player_counts = [0, 0]
 
 
 func _ready():
@@ -22,18 +23,19 @@ func _ready():
 func _peer_connected(player_id):
 	print(str(player_id) + " connected")
 
-	player_ids.append(player_id)
+	player_ids[player_id] = int(team_player_counts[0] > team_player_counts[1])
+	team_player_counts[player_ids[player_id]] += 1
 
-	rpc_id(0, "return_connected_player", player_id)
-	rpc_id(player_id, "return_connected_players", player_ids)
+	rpc_id(0, "return_player_ids", player_ids)
 
 
 func _peer_disconnected(player_id):
 	print(str(player_id) + " disconnected")
 
+	team_player_counts[player_ids[player_id]] -= 1
 	player_ids.erase(player_id)
 
-	rpc_id(0, "return_disconnected_player", player_id)
+	rpc_id(0, "return_player_ids", player_ids)
 
 
 remote func synchronize(node_path, func_name, state):
